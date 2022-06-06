@@ -1,9 +1,11 @@
 const express = require('express')
 const uuid = require("uuid")
+const cors = require('cors')
 
-const port = 3000
+const port = 3001
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 
 /*  
@@ -46,9 +48,11 @@ app.get('/orders', (request, response) =>{
 })
 
 app.post('/orders', (request, response) =>{  
-    const {order, clientName, price, status} = request.body
+    //const {order, clientName, price, status} = request.body
+    const {order, name} = request.body
 
-    const user = {id:uuid.v4(), order, clientName, price, status }
+    //const user = {id:uuid.v4(), order, clientName, price, status }
+    const user = {id:uuid.v4(), order, name}
 
     orders.push(user)
 
@@ -57,11 +61,13 @@ app.post('/orders', (request, response) =>{
 })
 
 app.put('/orders/:id', checkId, requests, (request, response) =>{     
-    const {order, clientName, price, status} = request.body
+    //const {order, clientName, price, status} = request.body
+    const {order, name, price, status} = request.body
     const index = request.userIndex
     const id = request.userId
 
-    const updateUser = {id, order, clientName, price, status}
+    //const updateUser = {id, order, clientName, price, status}
+    const updateUser = {id, order, name, price, status}
     orders[index] = updateUser
     return response.json(updateUser)
 })
